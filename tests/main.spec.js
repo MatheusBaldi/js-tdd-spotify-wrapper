@@ -54,6 +54,21 @@ describe('Spotify Wrappper', () => {
       const artists = search();
 
       expect(fetchedStub).to.have.been.calledOnce;
+
+      fetchedStub.restore();
+    });
+
+    it('should receive the correct url to fetch', () => {
+      const fetchedStub = sinon.stub(global, 'fetch');
+
+      const artists = search('Incubus', 'artist', 'authToken');
+      expect(fetchedStub).to.have.been
+        .calledWith('curl -X "GET" "https://api.spotify.com/v1/search?q=Incubus&type=artist" -H "Accept: application/json" -H "Content-Type: application/json" -H "Authorization: Bearer authToken"');
+
+      const albums = search('Incubus', 'album', 'authToken');
+      expect(fetchedStub).to.have.been
+        .calledWith('curl -X "GET" "https://api.spotify.com/v1/search?q=Incubus&type=album" -H "Accept: application/json" -H "Content-Type: application/json" -H "Authorization: Bearer authToken"');
+      fetchedStub.restore();
     });
   });
 });
