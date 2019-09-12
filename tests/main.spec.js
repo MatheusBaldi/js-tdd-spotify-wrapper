@@ -1,6 +1,9 @@
 /* eslint-disable no-undef */
 /* eslint-disable no-unused-expressions */
-import { expect } from 'chai';
+import chai, { expect } from 'chai';
+import sinon from 'sinon';
+import sinonChai from 'sinon-chai';
+// import sinonStubPromise from 'sinon-stub-promise';
 import {
   search,
   searchAlbuns,
@@ -8,6 +11,11 @@ import {
   searchTracks,
   searchPlaylists,
 } from '../src/main';
+
+global.fetch = require('node-fetch');
+
+chai.use(sinonChai);
+// sinonStubPromise(sinon);
 
 describe('Spotify Wrappper', () => {
   describe('Smoke tests', () => {
@@ -40,9 +48,12 @@ describe('Spotify Wrappper', () => {
 
   describe('Generic Search', () => {
     it('should call fetch function', () => {
+      const fetchedStub = sinon.stub(global, 'fetch');
+
       // eslint-disable-next-line no-unused-vars
       const artists = search();
 
+      expect(fetchedStub).to.have.been.calledOnce;
     });
   });
 });
