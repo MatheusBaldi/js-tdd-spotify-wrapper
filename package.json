@@ -1,7 +1,7 @@
 {
-  "name": "js_tdd",
+  "name": "js-tdd-spotify-wrapper",
   "version": "1.0.0",
-  "description": "One Paragraph of project description goes here",
+  "description": "A wrapper to work with the Spotify Web API",
   "main": "index.js",
   "scripts": {
     "lint": "./node_modules/.bin/eslint src/*.js tests/*.spec.js",
