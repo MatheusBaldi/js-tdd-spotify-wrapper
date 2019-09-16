@@ -1,9 +1,9 @@
 /* eslint-disable no-undef */
 /* eslint-disable no-unused-expressions */
 import chai, { expect } from 'chai';
+import chaiAsPromised from 'chai-as-promised';
 import sinon from 'sinon';
 import sinonChai from 'sinon-chai';
-// import sinonStubPromise from 'sinon-stub-promise';
 import {
   search,
   searchAlbuns,
@@ -15,7 +15,7 @@ import {
 global.fetch = require('node-fetch');
 
 chai.use(sinonChai);
-// sinonStubPromise(sinon);
+chai.use(chaiAsPromised);
 
 describe('Spotify Wrappper', () => {
   describe('Smoke tests', () => {
@@ -47,28 +47,48 @@ describe('Spotify Wrappper', () => {
   });
 
   describe('Generic Search', () => {
-    it('should call fetch function', () => {
-      const fetchedStub = sinon.stub(global, 'fetch');
+    let fetchedStub;
 
-      // eslint-disable-next-line no-unused-vars
-      const artists = search();
+    beforeEach(() => {
+      fetchedStub = sinon.stub(global, 'fetch');
+      fetchedStub.resolves({ json: () => ({ body: 'json' }) });
+    });
 
-      expect(fetchedStub).to.have.been.calledOnce;
-
+    afterEach(() => {
       fetchedStub.restore();
     });
 
-    it('should receive the correct url to fetch', () => {
-      const fetchedStub = sinon.stub(global, 'fetch');
+    it('Should return JSON data from the promise', () => {
+      const artists = search('Incubus', 'artist');
 
-      const artists = search('Incubus', 'artist', 'authToken');
-      expect(fetchedStub).to.have.been
-        .calledWith('curl -X "GET" "https://api.spotify.com/v1/search?q=Incubus&type=artist" -H "Accept: application/json" -H "Content-Type: application/json" -H "Authorization: Bearer authToken"');
+      return expect(artists).to.eventually.eql({ body: 'json' });
+    });
 
-      const albums = search('Incubus', 'album', 'authToken');
-      expect(fetchedStub).to.have.been
-        .calledWith('curl -X "GET" "https://api.spotify.com/v1/search?q=Incubus&type=album" -H "Accept: application/json" -H "Content-Type: application/json" -H "Authorization: Bearer authToken"');
-      fetchedStub.restore();
+    context('passing one type', () => {
+      it('should call fetch function', () => {
+        // eslint-disable-next-line no-unused-vars
+        const artists = search();
+
+        expect(fetchedStub).to.have.been.calledOnce;
+      });
+
+      it('should call fetch with the correct url', () => {
+        const artists = search('Incubus', 'artist');
+        expect(fetchedStub).to.have.been
+          .calledWith('https://api.spotify.com/v1/search?q=Incubus&type=artist');
+
+        const albums = search('Incubus', 'album');
+        expect(fetchedStub).to.have.been
+          .calledWith('https://api.spotify.com/v1/search?q=Incubus&type=album');
+      });
+    });
+
+    context('passing more than one type', () => {
+      it('should receive url with more than one type', () => {
+        const artistsAndAlbums = search('Incubus', ['artist', 'album']);
+        expect(fetchedStub).to.have.been
+          .calledWith('https://api.spotify.com/v1/search?q=Incubus&type=artist,album');
+      });
     });
   });
 });
