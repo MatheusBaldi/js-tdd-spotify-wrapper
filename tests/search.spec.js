@@ -10,14 +10,14 @@ import {
   searchArtists,
   searchTracks,
   searchPlaylists,
-} from '../src/main';
+} from '../src/search';
 
 global.fetch = require('node-fetch');
 
 chai.use(sinonChai);
 chai.use(chaiAsPromised);
 
-describe('Spotify Wrappper', () => {
+describe('Search', () => {
   let fetchedStub;
 
   beforeEach(() => {
