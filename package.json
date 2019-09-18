@@ -4,8 +4,11 @@
   "description": "A wrapper to work with the Spotify Web API",
   "main": "src/index.js",
   "scripts": {
-    "lint": "./node_modules/.bin/eslint src/*.js tests/*.spec.js",
-    "test": "./node_modules/.bin/mocha tests/**/*.spec.js --require @babel/register",
+    "clear": "rimraf lib",
+    "build": "npm run clear && npx babel --out-dir lib src",
+    "build:watch": "npm run build -- --watch --verbose",
+    "lint": "npx eslint src/*.js tests/*.spec.js",
+    "test": "npx mocha tests/**/*.spec.js --require @babel/register",
     "test:tdd": "npm test -- --watch",
     "test:coverage": "nyc npm test"
   },
@@ -30,6 +33,7 @@
   "author": "Matheus Henrique Baldi de Almeida",
   "license": "MIT",
   "devDependencies": {
+    "@babel/cli": "^7.6.0",
     "@babel/core": "^7.6.0",
     "@babel/node": "^7.6.1",
     "@babel/preset-env": "^7.6.0",
@@ -42,6 +46,7 @@
     "husky": "^3.0.5",
     "mocha": "^6.2.0",
     "nyc": "^14.1.1",
+    "rimraf": "^3.0.0",
     "sinon": "^7.4.2",
     "sinon-chai": "^3.3.0"
   },
