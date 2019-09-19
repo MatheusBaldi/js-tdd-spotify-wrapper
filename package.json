@@ -7,6 +7,9 @@
     "clear": "rimraf lib",
     "build": "npm run clear && npx babel --out-dir lib src",
     "build:watch": "npm run build -- --watch --verbose",
+    "build:umd": "npx webpack --output-filename spotify-wrapper.umd.js",
+    "build:umd:min": "npx webpack --output-filename spotify-wrapper.umd.min.js -p",
+    "build:all": "npm run build && npm run build:umd && npm run build:umd:min",
     "lint": "npx eslint src/*.js tests/*.spec.js",
     "test": "npx mocha tests/**/*.spec.js --require @babel/register",
     "test:tdd": "npm test -- --watch",
@@ -38,6 +41,7 @@
     "@babel/node": "^7.6.1",
     "@babel/preset-env": "^7.6.0",
     "@babel/register": "^7.6.0",
+    "babel-loader": "^8.0.6",
     "chai": "^4.2.0",
     "chai-as-promised": "^7.1.1",
     "eslint": "^6.3.0",
@@ -48,7 +52,9 @@
     "nyc": "^14.1.1",
     "rimraf": "^3.0.0",
     "sinon": "^7.4.2",
-    "sinon-chai": "^3.3.0"
+    "sinon-chai": "^3.3.0",
+    "webpack": "^4.40.2",
+    "webpack-cli": "^3.3.9"
   },
   "dependencies": {
     "dotenv": "^8.1.0",
