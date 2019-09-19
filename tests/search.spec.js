@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable no-undef */
 /* eslint-disable no-unused-expressions */
 import chai, { expect } from 'chai';
@@ -159,5 +160,4 @@ describe('Search', () => {
         .calledWith('https://api.spotify.com/v1/search?q=Muse&type=playlist');
     });
   });
-
 });

@@ -6,6 +6,7 @@
 **THIS PROJECT IS A LESSON FROM THE COURSE [JS com TDD na Prática](https://www.udemy.com/course/js-com-tdd-na-pratica/). EVEN THIS README.md IS PART OF THE LESSONS, SO I AM NOT THE REAL AUTHOR**
 **ORIGINAL PROJECT: https://github.com/willianjusten/spotify-wrapper**
 
+
 A wrapper to work with the [Spotify Web API](https://developer.spotify.com/documentation/web-api/).
 
 ## Browser Support
