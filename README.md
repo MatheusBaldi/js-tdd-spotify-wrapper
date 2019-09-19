@@ -1,5 +1,7 @@
 # Spotify Wrapper
 
+[![Build Status](https://travis-ci.org/MatheusBaldi/js-tdd-spotify-wrapper.svg?branch=master)](https://travis-ci.org/MatheusBaldi/js-tdd-spotify-wrapper)
+
 ** THIS PROJECT IS A LESSON FROM THE COURSE [JS com TDD na Prática](https://www.udemy.com/course/js-com-tdd-na-pratica/). EVEN THIS README.md IS PART OF THE LESSONS, SO I AM NOT THE REAL AUTHOR**
 ** ORIGINAL PROJECT: https://github.com/willianjusten/spotify-wrapper **
 
