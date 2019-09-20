@@ -758,13 +758,13 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var getAlbum = function getAlbum(id) {
-  return fetch("".concat(_config__WEBPACK_IMPORTED_MODULE_0__["API_URL"], "/albums/").concat(id)).then(_utils__WEBPACK_IMPORTED_MODULE_1__["toJSON"]);
+  return fetch("".concat(_config__WEBPACK_IMPORTED_MODULE_0__["API_URL"], "/albums/").concat(id), _config__WEBPACK_IMPORTED_MODULE_0__["HEADERS"]).then(_utils__WEBPACK_IMPORTED_MODULE_1__["toJSON"]);
 };
 var getAlbums = function getAlbums(ids) {
-  return fetch("".concat(_config__WEBPACK_IMPORTED_MODULE_0__["API_URL"], "/albums/?ids=").concat(ids)).then(_utils__WEBPACK_IMPORTED_MODULE_1__["toJSON"]);
+  return fetch("".concat(_config__WEBPACK_IMPORTED_MODULE_0__["API_URL"], "/albums/?ids=").concat(ids), _config__WEBPACK_IMPORTED_MODULE_0__["HEADERS"]).then(_utils__WEBPACK_IMPORTED_MODULE_1__["toJSON"]);
 };
 var getAlbumTracks = function getAlbumTracks(id) {
-  return fetch("".concat(_config__WEBPACK_IMPORTED_MODULE_0__["API_URL"], "/albums/").concat(id, "/tracks")).then(_utils__WEBPACK_IMPORTED_MODULE_1__["toJSON"]);
+  return fetch("".concat(_config__WEBPACK_IMPORTED_MODULE_0__["API_URL"], "/albums/").concat(id, "/tracks"), _config__WEBPACK_IMPORTED_MODULE_0__["HEADERS"]).then(_utils__WEBPACK_IMPORTED_MODULE_1__["toJSON"]);
 };
 
 /***/ }),
@@ -773,14 +773,25 @@ var getAlbumTracks = function getAlbumTracks(id) {
 /*!***********************!*\
   !*** ./src/config.js ***!
   \***********************/
-/*! exports provided: API_URL */
+/*! exports provided: API_URL, HEADERS */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "API_URL", function() { return API_URL; });
-// eslint-disable-next-line import/prefer-default-export
+/* WEBPACK VAR INJECTION */(function(process) {/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "API_URL", function() { return API_URL; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "HEADERS", function() { return HEADERS; });
+__webpack_require__(/*! dotenv */ "./node_modules/dotenv/lib/main.js").config();
+
 var API_URL = 'https://api.spotify.com/v1';
+var HEADERS = {
+  method: 'GET',
+  headers: {
+    'Content-Type': 'application/json',
+    Accept: 'application/json',
+    Authorization: "Bearer ".concat(process.env.SPOTIFY_AUTH_TOKEN)
+  }
+};
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../node_modules/process/browser.js */ "./node_modules/process/browser.js")))
 
 /***/ }),
 
@@ -824,7 +835,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* WEBPACK VAR INJECTION */(function(process) {/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "search", function() { return search; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "search", function() { return search; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "searchAlbums", function() { return searchAlbums; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "searchArtists", function() { return searchArtists; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "searchTracks", function() { return searchTracks; });
@@ -833,19 +844,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./utils */ "./src/utils.js");
 
 
-
-__webpack_require__(/*! dotenv */ "./node_modules/dotenv/lib/main.js").config(); // eslint-disable-next-line import/prefer-default-export
-
-
 var search = function search(query, type) {
-  return fetch("".concat(_config__WEBPACK_IMPORTED_MODULE_0__["API_URL"], "/search?q=").concat(query, "&type=").concat(type), {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-      Accept: 'application/json',
-      Authorization: "Bearer ".concat(process.env.SPOTIFY_AUTH_TOKEN || 'BQBMCuMQUImu1rmsjmUbL7r0tnzttRv_pA4YYInsoLqDHZFTc3DDTWtS0x0Q2c0ey7nMEiMEi7_DempthcJKjiVeDZKiFFIqRG7I2m_xv9fRqV-IU4-_7GoG2W5gelkw9S5JemL-bJImteGn')
-    }
-  }).then(_utils__WEBPACK_IMPORTED_MODULE_1__["toJSON"]);
+  return fetch("".concat(_config__WEBPACK_IMPORTED_MODULE_0__["API_URL"], "/search?q=").concat(query, "&type=").concat(type), _config__WEBPACK_IMPORTED_MODULE_0__["HEADERS"]).then(_utils__WEBPACK_IMPORTED_MODULE_1__["toJSON"]);
 };
 var searchAlbums = function searchAlbums(query) {
   return search(query, 'album');
@@ -859,7 +859,6 @@ var searchTracks = function searchTracks(query) {
 var searchPlaylists = function searchPlaylists(query) {
   return search(query, 'playlist');
 };
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../node_modules/process/browser.js */ "./node_modules/process/browser.js")))
 
 /***/ }),
 
@@ -873,6 +872,7 @@ var searchPlaylists = function searchPlaylists(query) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "toJSON", function() { return toJSON; });
+/* eslint-disable import/prefer-default-export */
 var toJSON = function toJSON(data) {
   return data.json();
 };
